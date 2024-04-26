@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Page</title>
+</head>
+<body>
+    <h2>Personal Information:</h2>
+    <p><strong>Name:</strong> {{ personal_data.name }}</p>
+    <p><strong>Email:</strong> {{ personal_data.email }}</p>
+    <p><strong>Phone:</strong> {{ personal_data.phone }}</p>
+
+    <h2>Courses Taught:</h2>
+    <ul>
+        {% for course in courses_taught %}
+            <li>{{ course.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Grades Assigned:</h2>
+    <ul>
+        {% for grade in grades_assigned %}
+            <li>Student: {{ grade.student.name }} - Course: {{ grade.course.name }} - Grade: {{ grade.grade }}</li>
+        {% empty %}
+            <li>No grades assigned</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
