@@ -14,19 +14,20 @@ def index(request):
         # Split the username by the dot (.)
         parts = username.split('.')
         
-        # Check if the username follows the pattern username.role
-        if len(parts) == 2:
-            _, role = parts              
-            
-            role_pages = {
-                'student': 'student_page',
-                'professor': 'professor_page',                
-            }            
-            
-            if role in role_pages:
-                return redirect(role_pages[role])
-        else:
-            return HttpResponse(f"The user {username} doesn't have a Page.", status=404)
+        # Check if the username follows the pattern username.role        
+        _, role = parts              
+        
+        role_pages = {
+            'student': 'student_page',
+            'professor': 'professor_page',                
+        }            
+        
+        if role in role_pages:
+            return redirect(role_pages[role])
+        
+        else:           
+            logout(request)
+            return HttpResponse(f"The user {username} does not have a page.", status=404)
         
     else:
         return redirect('app_login')
@@ -55,6 +56,11 @@ def app_logout(request):
 def student_page(request):
     student = Student.objects.get(username=request.user.username)
 
+    if student == None:
+        logout(request)
+        return HttpResponse(f"The user does not have a page.", status=404)
+
+
     # Retrieve personal data
     personal_data = {
         'name': student.name,
@@ -79,6 +85,10 @@ def student_page(request):
 
 def professor_page(request):    
     professor = Professor.objects.get(username=request.user.username)
+
+    if professor == None:
+        logout(request)
+        return HttpResponse(f"The user does not have a page.", status=404)
 
     # Retrieve personal data of the professor
     personal_data = {
