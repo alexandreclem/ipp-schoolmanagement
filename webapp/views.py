@@ -100,13 +100,19 @@ def professor_page(request):
     # Retrieve courses taught by the professor
     courses_taught = Course.objects.filter(professor=professor)
 
+    # Retrieve students of each course taught by the professor
+    students_in_courses = {}
+    for course in courses_taught:
+        students_in_courses[course.name] = course.students.all()
+
     # Retrieve grades assigned by the professor 
     grades_assigned = Grade.objects.filter(professor=professor)
 
     context = {
         'personal_data': personal_data,
         'courses_taught': courses_taught,
-        'grades_assigned': grades_assigned,        
+        'grades_assigned': grades_assigned,
+        'students_in_courses': students_in_courses
     }
 
     return render(request, 'webapp/professor_page.html', context)
