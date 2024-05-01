@@ -19,17 +19,15 @@
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
 
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
+        <div style="display: flex;" class="">
             <a style="margin-left:100px;" class="navbar-brand d-flex align-items-center">
                 <img src="https://www.ipportalegre.pt/static/ippimages/LogoNovoPolitecnico.png" alt="Logo" class="d-inline-block align-text-top" style="width: 300px; height: auto;">
             </a>
-            <div style="margin-left:1000px;text-transform:uppercase;">
-                Current user: {{ user.username }}
-            </div>
+            <div style="margin-top: 60px; margin-left:650px; width: 300px; text-transform:uppercase;">Current user: {{ user.username }}</div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div style="margin-top: -10px !important; margin-left: -50px !important;"class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-5 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link btn btn-logout" style="font-size: 18px;margin-right:100px;" href="{% url 'app_logout' %}">Logout</a>

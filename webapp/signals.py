@@ -8,13 +8,12 @@ from webapp.models import Professor, Student
 @receiver(post_save, sender=Student)
 def create_student_user(sender, instance, created, **kwargs):
     if created:
-        User.objects.create_user(username=instance.username, email=instance.email, password='default_password')
+        User.objects.create_user(username=instance.username, email=instance.email, password='1234') # This default password is used only for TEST 
 
 @receiver(post_save, sender=Professor)
 def create_professor_user(sender, instance, created, **kwargs):
     if created:
-        User.objects.create_user(username=instance.username, email=instance.email, password='default_password')
-
+        User.objects.create_user(username=instance.username, email=instance.email, password='1234') # This default password is used only for TEST 
 # Post-delete Students/Professors -> Deletes the User instance related to them
 @receiver(post_delete, sender=Student)
 def delete_student_user(sender, instance, **kwargs):

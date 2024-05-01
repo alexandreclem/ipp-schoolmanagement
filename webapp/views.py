@@ -9,26 +9,18 @@ def index(request):
     user = request.user    
 
     if user.is_authenticated:                        
-        username = request.user.username
+        username = request.user.username      
         
-        # Split the username by the dot (.)
-        parts = username.split('.')
+        if username.endswith('.student'):
+            return redirect('student_page')
         
-        # Check if the username follows the pattern username.role        
-        _, role = parts              
+        elif username.endswith('.professor'):
+            return redirect('professor_page')
         
-        role_pages = {
-            'student': 'student_page',
-            'professor': 'professor_page',                
-        }            
-        
-        if role in role_pages:
-            return redirect(role_pages[role])
-        
-        else:           
+        else:
             logout(request)
             return HttpResponse(f"The user {username} does not have a page.", status=404)
-        
+               
     else:
         return redirect('app_login')
 
@@ -56,10 +48,10 @@ def app_logout(request):
 def student_page(request):
     student = Student.objects.get(username=request.user.username)
 
+    # Protects against user creations directly with the superuser without referencing it to the Student model
     if student == None:
         logout(request)
         return HttpResponse(f"The user does not have a page.", status=404)
-
 
     # Retrieve personal data
     personal_data = {
@@ -86,6 +78,7 @@ def student_page(request):
 def professor_page(request):    
     professor = Professor.objects.get(username=request.user.username)
 
+    # Protects against user creations directly with the superuser without referencing it to the Professor model
     if professor == None:
         logout(request)
         return HttpResponse(f"The user does not have a page.", status=404)
@@ -104,6 +97,9 @@ def professor_page(request):
     students_in_courses = {}
     for course in courses_taught:
         students_in_courses[course.name] = course.students.all()
+    
+    print(courses_taught)
+    print(students_in_courses)
 
     # Retrieve grades assigned by the professor 
     grades_assigned = Grade.objects.filter(professor=professor)
@@ -116,5 +112,3 @@ def professor_page(request):
     }
 
     return render(request, 'webapp/professor_page.html', context)
-
-

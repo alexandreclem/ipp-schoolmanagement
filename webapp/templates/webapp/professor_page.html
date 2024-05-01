@@ -9,9 +9,9 @@
     <title>Professor Page</title>
     <style>
         .btn-logout {
-            background-color: blue; /* Cor de fundo do botão */
-            border-radius: 10px; /* Bordas arredondadas */
-            color: white; /* Cor do texto */
+            background-color: blue; 
+            border-radius: 10px; 
+            color: white; 
         }
     </style>
 </head>
@@ -19,18 +19,16 @@
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
 
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
+        <div style="display: flex;" class="">
             <a style="margin-left:100px;" class="navbar-brand d-flex align-items-center">
                 <img src="https://www.ipportalegre.pt/static/ippimages/LogoNovoPolitecnico.png" alt="Logo" class="d-inline-block align-text-top" style="width: 300px; height: auto;">
             </a>
-            <div style="margin-left:1000px;text-transform:uppercase;">
-                Current user: {{ user.username }}
-            </div>
+            <div style="margin-top: 60px; margin-left:650px; width: 300px; text-transform:uppercase;">Current user: {{ user.username }}</div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <div style="margin-top: -10px !important; margin-left: -50px !important;"class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-5 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link btn btn-logout" style="font-size: 18px;margin-right:100px;" href="{% url 'app_logout' %}">Logout</a>
                     </li>
@@ -40,14 +38,14 @@
     </nav>
 
     <div style="margin-left:125px;margin-top:50px;">
-        <h2>Personal Information:</h2>
+        <h2>Personal Information</h2>
         <p><strong>Name:</strong> {{ personal_data.name }}</p>
         <p><strong>Email:</strong> {{ personal_data.email }}</p>
         <p><strong>Phone:</strong> {{ personal_data.phone }}</p>
     </div>
 
     <div style="margin-left:125px;margin-top:50px;">
-    <h2>Courses Taught:</h2>
+    <h2>Courses Taught</h2>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="courseDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 Select Course
@@ -61,7 +59,7 @@
     </div>
 
     <div id="studentsDropdown" style="display: none;margin-left:125px;margin-top:50px;">
-        <h2>Students:</h2>
+        <h2>Students</h2>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="studentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 Select Student
@@ -73,7 +71,7 @@
     </div>
 
     <div id="gradesSection" style="display: none;margin-left:125px;margin-top:50px;">
-        <h2>Grades Assigned:</h2>
+        <h2>Grades Assigned</h2>
         <ul id="gradesList">
             <!-- Grades will be dynamically inserted here -->
         </ul>
@@ -88,11 +86,9 @@
             studentList.innerHTML = '';
 
             // Show students for the selected course
-
-
                 {% for course, students_in_course in students_in_courses.items %}
                     if ("{{ course }}" === courseName) {
-                        {% for student in students_in_course %}
+                        {% for student in students_in_course %}                            
                             var studentName = "{{ student.name }}";
                             var listItem = document.createElement('li');
                             var link = document.createElement('a');
