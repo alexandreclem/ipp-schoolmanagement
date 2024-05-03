@@ -97,9 +97,6 @@ def professor_page(request):
     students_in_courses = {}
     for course in courses_taught:
         students_in_courses[course.name] = course.students.all()
-    
-    print(courses_taught)
-    print(students_in_courses)
 
     # Retrieve grades assigned by the professor 
     grades_assigned = Grade.objects.filter(professor=professor)
